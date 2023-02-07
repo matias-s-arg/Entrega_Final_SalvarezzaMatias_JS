@@ -74,6 +74,8 @@ console.log(pagoIndividual)
 pagaCadaUno.innerHTML = `cada uno tiene que pagar $ ${pagoIndividual}`
 
 
+
+// boton fin
 const botonFin = document.getElementById("botonFin")
 botonFin.addEventListener("click", () => {
     sessionStorage.clear()
