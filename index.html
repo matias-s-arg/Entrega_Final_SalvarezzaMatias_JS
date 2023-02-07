@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- menu -->
+    <ul id="menu">
+        <li class="lista"><a href="/index.html">HOME</a></li>
+    </ul>
+
+    <h1>Calculador de cuentas</h1>
+
+    <hr>
+
+    <p>Es una aplicación para poder en las que cargando los nombres de las personas e indicando lo que consumieron divide el valor total de la cuenta que debe pagar cada uno</p>
+ 
+
+
+
+<!-- titulo con bienvenida -->
+    <h2 id="titulo"></h2>
+    
+    
+
+<!-- carga de datos de personas y contador en sessionstorage-->
+
+
+    <h2>Listado de clientes</h2>
+    <p>Carga los datos de las personas y almacena sus datos en SessionStorage. Debe ingresar al menos un nombre</p>
+    
+        <h3>Nombre<input type="text" id="nombreP"></h3>
+        <input type="submit" value="Agregar"id="btnAgregar2">
+
+        <ul id="listaPersonas">
+
+        </ul>
+
+        <h3 id="ingresados"></h3>
+
+    <Button ><a href="/Pages/resultado.html" id="refresh">Calcular Consumo</a>
+    </Button>
+
+
+<!-- base de datos de productos -->
+    <hr>
+
+    <h2>Agregar producto a la base de datos </h2>
+    <p>Permite agregar productos en la base de datos de LocalStorage</p>
+        <h3>Producto<input type="text" id="tipoBebida"></h3>
+        <h3>Precio $<input type="number" id="precioBebida"></h3>
+        <input type="submit" value="Agregar"id="btnAgregar" >
+
+    <hr>
+    <hr>
+    <h2 id="cartilla">Carta de productos</h2>
+    <br>        
+
+    <ul id="listaBebidas"></ul>
+
+    <Button id="limpiar">Limpiar datos</Button>
+
+    <script src="./JS/app.js"></script>
+</body>
+</html>
