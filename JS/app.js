@@ -10,13 +10,13 @@ const titulo = document.querySelector(`#titulo`)
 let nombre = ''
 
 // verificación de nombres previos
-const nombreLS = localStorage.getItem("nombre")
+const nombreLS = sessionStorage.getItem("nombre")
 
 if (nombreLS) {
     nombre = nombreLS
 }  else{
     nombre = prompt("Ingrese su nombre")
-    localStorage.setItem("nombre",nombre)
+    sessionStorage.setItem("nombre",nombre)
 }
 
 titulo.innerHTML = `Bienvenido ${nombre}`
