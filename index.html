@@ -4,66 +4,98 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootastrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
     <title>Document</title>
 </head>
-<body>
+<body style="margin-right: 10%; margin-left: 10%; margin-top: 5%; background-color: #cdd6d6; border: display;" >
+    <header >
+        <div  class="card" style="margin-top: 5px; background-color: #cdd6d6">
+            <h1 class="d-flex justify-content-center  fw-bold;" >Gestor de gastos</h1>
+            
+            <p style="text-align: center;">Es una aplicación que permite cargar productos con sus precios, y las personas para poder calcular el total de lo consumido y dividir el gasto. Se genera una base de datos que puede ser renovada</p>
+            <hr >
+            <!-- titulo con bienvenida -->
+            <h2 id="titulo" class="d-flex justify-content-center"></h2>
+            <hr>
+        </div>
+    </header>
 
-    <!-- menu -->
-    <!-- <ul id="menu">
-        <li class="lista"><a href="/index.html">HOME</a></li>
-    </ul> -->
+    <main >
+        <div >
+        <!-- Personas -->
+            <!-- carga de datos de personas y contador en sessionstorage-->
 
-    <h1>Calculador de cuentas</h1>
+            <h2 style="text-decoration: underline; margin-top: 30px;">Listado de personas</h2>
+            <p>Carga los datos de las personas y almacena sus datos en SessionStorage. Debe ingresar al menos un nombre</p>
+            
+                <h3>Nombre <input type="text" id="nombreP" type="text" aria-label="First name" class="form-control" style="width: 50%"></h3>
+                <input type="submit" value="Agregar"id="btnAgregar2" class="btn btn-primary btn-lg">
+                <Button id="limpiarPers" class="btn btn-secondary btn-lg">Refresh</Button>
+                <br>
+                <br>
 
-    <hr>
+                <h3 id="ingresados"></h3>
 
-    <p>Es una aplicación para poder en las que cargando los nombres de las personas e indicando lo que consumieron divide el valor total de la cuenta que debe pagar cada uno</p>
- 
+            <hr>
+        </div>
+        <br>
+        <div class="d-flex justify-content-center">
+            <div class="card" style="width: 50%; margin-right: 10px;">
+            <!-- Productos-->   
+                <h2 style="text-decoration: underline;">Listado de productos</h2>
+                <p>Se seleccionan los productos consumidos y se muestra al final un listado de los mismos</p>
+                <br>        
+
+                <ul id="listaprods" class="fs-4"></ul>
+                <Button id="refresh" class="btn btn-secondary btn-lg"> Corregir listado de productos seleccionados
+                </Button>
+            </div>
+
+            <div class="card" style="width: 50%">
+                <!-- Calculos-->   
+                
+                <h2 style="text-decoration: underline;margin-left: 10px;">Resultados</h2>    
+                <h3 id="cantPers"></h3>
+                <h3 id="consumoTotal2" class="fw-bold"></h3>
+                <h3 id="pagoSinPropina" class="fw-bold"></h3>
+                <h3 id="propina"></h3>
+                <h3 id="pagoTotal"></h3>
+                <h3 id="pagaCadaUno" class="fw-bold"></h3>
+                <br>
+                
+            </div>
+        </div>
+        <div style="margin-top: 30px; margin-bottom: 30px;" >
+            <!-- Carga de prodcutos a base de datos-->   
+
+            <h2 style="text-decoration: underline;" class="d-flex justify-content-center">Agregar producto a la base de datos </h2>
+            <p class="d-flex justify-content-center">Permite agregar productos en la base de datos de LocalStorage</p>
+            <h3>Producto<input type="text" id="tipoprod" aria-label="First name" class="form-control" style="width: 50%"></h3>
+            <h3>Precio $<input type="number" id="precioprod" aria-label="First name" class="form-control" style="width: 50%"></h3>
+            <input type="submit" value="Agregar"id="btnAgregar" class="btn btn-primary btn-lg">
+            <hr>
+
+            <!-- base de datos de productos -->
+            <h3>Resetear base de datos de productos</h3>  
+            <Button id="limpiar" class="btn btn-secondary btn-lg">Limpiar datos</Button>
+
+
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+            <script src="JS/app.js"></script>
+
+        </div>
 
 
 
-<!-- titulo con bienvenida -->
-    <h2 id="titulo"></h2>
-    
-    
-
-<!-- carga de datos de personas y contador en sessionstorage-->
+    </main>
 
 
-    <h2>Listado de clientes</h2>
-    <p>Carga los datos de las personas y almacena sus datos en SessionStorage. Debe ingresar al menos un nombre</p>
-    
-        <h3>Nombre<input type="text" id="nombreP"></h3>
-        <input type="submit" value="Agregar"id="btnAgregar2">
-
-        <ul id="listaPersonas">
-
-        </ul>
-
-        <h3 id="ingresados"></h3>
-
-    <Button ><a href="./Pages/resultado.html" id="refresh">Calcular Consumo</a>
-    </Button>
 
 
-<!-- base de datos de productos -->
-    <hr>
 
-    <h2>Agregar producto a la base de datos </h2>
-    <p>Permite agregar productos en la base de datos de LocalStorage</p>
-        <h3>Producto<input type="text" id="tipoBebida"></h3>
-        <h3>Precio $<input type="number" id="precioBebida"></h3>
-        <input type="submit" value="Agregar"id="btnAgregar" >
 
-    <hr>
-    <hr>
-    <h2 id="cartilla">Carta de productos</h2>
-    <br>        
 
-    <ul id="listaBebidas"></ul>
-
-    <Button id="limpiar">Limpiar datos</Button>
-
-    <script src="JS/app.js"></script>
 </body>
 </html>

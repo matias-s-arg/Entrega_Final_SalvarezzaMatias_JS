@@ -1,11 +1,9 @@
 
-
-//---------------------------------------------ENTREGA---------------------------
-
-
 // 1-- nombres para presentación
 
-const titulo = document.querySelector(`#titulo`)
+// demoro 2 segundos el inicio
+setTimeout(() => {
+    const titulo = document.querySelector(`#titulo`)
 
 let nombre = ''
 
@@ -15,11 +13,13 @@ const nombreLS = sessionStorage.getItem("nombre")
 if (nombreLS) {
     nombre = nombreLS
 }  else{
-    nombre = prompt("Ingrese su nombre")
+    
+    nombre = prompt("Ingrese su nombre").toUpperCase()
     sessionStorage.setItem("nombre",nombre)
 }
 
 titulo.innerHTML = `Bienvenido ${nombre}`
+}, 2000);
 
 // 2----------------------- listado de personas
 
@@ -39,10 +39,9 @@ btnAgregar2.addEventListener("click", () => {
 
     if(cliente === '') return
     
-
     const listadoPers = {
         idP: listaP.length +1,
-        cliente: cliente,
+        cliente: cliente.toUpperCase(),
     }
     listaP.push(listadoPers)
     console.log(listaP)              
@@ -51,32 +50,35 @@ btnAgregar2.addEventListener("click", () => {
     sessionStorage.setItem('listaP', JSON.stringify(listaP))
 })
 
-// traigo como String
-const clientesFinal = sessionStorage.getItem("listaP")
+    // traigo como String
+    const clientesFinal = sessionStorage.getItem("listaP")
 
-// paso a Objeto
-const clientesJSON = JSON.parse(clientesFinal)
+    // paso a Objeto
+    const clientesJSON = JSON.parse(clientesFinal)
 
-console.log(clientesFinal)
-console.log(typeof clientesFinal)
-console.log(clientesJSON)
-console.log(typeof clientesJSON)
+    console.log(clientesFinal)
+    console.log(typeof clientesFinal)
+    console.log(clientesJSON)
+    console.log(typeof clientesJSON)
 
-// genero constante a partir de valores JSON
-const clientesIgresados = clientesJSON
+    // genero constante a partir de valores JSON
+    const clientesIgresados = clientesJSON
 
- console.log(clientesIgresados.length)
+    console.log(clientesIgresados.length)
 
-// traigo cantidad de bebidas guardadas
- console.log(clientesIgresados.length)
+    // traigo cantidad de prods guardadas
+    console.log(clientesIgresados.length)
 
- const ingresados = document.getElementById("ingresados")
- ingresados.innerHTML = `Ha ingresado ${clientesIgresados.length} personas` 
+    const ingresados = document.getElementById("ingresados")
+    ingresados.innerHTML = `Ha ingresado ${clientesIgresados.length} personas` 
+
+
+
+
+
 
 
 // 3----------------------- DEFINO LOS PRODUCTOS EN CARTA
-
-// carga de carta de bebidas
 
 let carta = []
 const cartaLS = JSON.parse(localStorage.getItem('carta'))
@@ -85,100 +87,168 @@ if (cartaLS) {
     carta = cartaLS
 }
 
-
-const tipoBebida = document.getElementById("tipoBebida")
-const precioBebida = document.getElementById("precioBebida")
+const tipoprod = document.getElementById("tipoprod")
+const precioprod = document.getElementById("precioprod")
 const btnAgregar = document.getElementById("btnAgregar")
 
+
+
 btnAgregar.addEventListener("click", () => {
-    const bebida = tipoBebida.value
-    const precio = precioBebida.value
+    let prod = tipoprod.value.toUpperCase()
+    let precio = precioprod.value
+    // let cantidad = 0
+    // let consumido = precio * cantidad
     window.location.reload()
 
-    if(bebida === '') return
+    if(prod === '') return
     if(precio === '') return
    
-
-    const cartaBebidas = {
+    const cartaprods = {
         id: carta.length +1,
-        bebida: bebida,
-        precio: precio
+        prod: prod,
+        precio: precio,
     }
-    carta.push(cartaBebidas)
+    carta.push(cartaprods)
     console.log(carta)              
-    tipoBebida.value = ''
-    precioBebida.value = ''
+    tipoprod.value = ''
+    precioprod.value = ''
     localStorage.setItem('carta', JSON.stringify(carta))
 })
 
 //boton refresh
 
-const refresh = document.getElementById("refresh")
+ const refresh = document.getElementById("refresh")
 
-refresh.addEventListener("click", () => {
+ refresh.addEventListener("click", () => {
     window.location.reload()
     
-           
-})
+ })
 
 
 
 // 4----------------------------------------mostrar productos
 
-// traigo como String
-const bebidasCarta = localStorage.getItem("carta")
-// paso a Objeto
-const cartaJSON = JSON.parse(bebidasCarta)
+let carrito = [];
 
-console.log(bebidasCarta)
-console.log(typeof bebidasCarta)
+// traigo como String
+const prodsCarta = localStorage.getItem("carta")
+// paso a Objeto
+const cartaJSON = JSON.parse(prodsCarta)
+
+console.log(prodsCarta)
+console.log(typeof prodsCarta)
 console.log(cartaJSON)
 console.log(typeof cartaJSON)
 
-
-const listaBebidas = document.getElementById("listaBebidas")
+const listaprods = document.getElementById("listaprods")
 
 if (cartaJSON) {
     cartaJSON.forEach((user) => {
     console.log(user)
 
+    // imprimo los productos
+
     const li = document.createElement("li")
     li.innerHTML = `
-        <h4>id: ${user.id}</h4>
-        <h4>bebida: ${user.bebida}</h4>
-        <h4>precio: ${user.precio}</h4>
+        <div class="card" style="width: 200px;">
+        <h5>Id: ${user.id}</h5>
+        <h5>Producto: ${user.prod}</h5>
+        <h5>Precio: $ ${user.precio}</h5>
+        </div>
         `
+    listaprods.append(li)
 
-    listaBebidas.append(li)
+    let seleccionar = document.createElement("button");
+    seleccionar.innerText = "Elegir"
+    seleccionar.className = "btn btn-outline-primary"
+    
+    li.append(seleccionar)
+    
+    //agrego evento
+    seleccionar.addEventListener("click", () => {
+
+        carrito.push({
+            id : user.id,
+            prod : user.prod,
+            precio : parseInt(user.precio),
+
+        });
+        console.log(carrito)
+        const consumido = carrito.reduce((acum, prod) => acum + prod.precio, 0 );
+        console.log(consumido)
+      
+        // genero el listado de elementos seleccionados
+    
+        const li2 = document.createElement("li")
+        li2.innerHTML = `
+            <h5>${user.prod}</h5>
+            `
+        
+        listaprods.append(li2)
+
+        // defino el consumo total
+        const consumoTotal2 = document.getElementById("consumoTotal2")
+        consumoTotal2.innerHTML = `Ha gastado $ ${consumido}`
+
+        // calculo la propina
+        const propina = document.getElementById("propina")
+        let pagoPropina = consumido * 0.1
+        console.log(pagoPropina)
+        propina.innerHTML = `La propina es $ ${pagoPropina}`
+
+
+        // sumo total + propina
+        const pagoTotal = document.getElementById("pagoTotal")
+        let pagoConPropina = consumido + pagoPropina
+        console.log(pagoConPropina)
+        pagoTotal.innerHTML = `El total a pagar es $ ${pagoConPropina}`
+
+        // calculo el calculo de cada uno
+        // traigo como String
+        const clientesFinal = sessionStorage.getItem("listaP")
+
+        // paso a Objeto
+        const clientesJSON = JSON.parse(clientesFinal)
+
+        console.log(clientesJSON)
+
+        // genero constante a partir de valores JSON
+        const clientesIgresados = clientesJSON
+
+        // traigo cantidad de prods guardadas
+        console.log(clientesIgresados.length)
+
+        const cantPers = document.getElementById("cantPers")
+        let totalPers = clientesIgresados.length
+        console.log(totalPers)
+        cantPers.innerHTML = `El total de personas son ${totalPers}`
+
+        // pago sin propina
+        const pagoSinPropina = document.getElementById("pagoSinPropina")
+        let cadaUnoSinProp = consumido / totalPers
+        pagoSinPropina.innerHTML = `Cada uno paga sin propina $ ${cadaUnoSinProp}`
+
+        // paga cada uno
+        const pagaCadaUno = document.getElementById("pagaCadaUno")
+        let pagoIndividual = pagoConPropina / totalPers
+        console.log(pagoIndividual)
+        pagaCadaUno.innerHTML = `Cada uno paga con propina $ ${pagoIndividual}`
+    
+    })
+
 })
 } else{
-    listaBebidas.innerHTML = "No hay bebidas cargadas"
+    listaprods.innerHTML = "No hay productos cargados"
+    swal("Tiene que ingresar productos para iniciar")
 }
 
+ // boton refresh personas
+ const limpiarPers = document.getElementById("limpiarPers")
 
-// visualizo la carta en pagina
-
-// traigo como String
-const bebidasContacto = localStorage.getItem("carta")
-
-// paso a Objeto
-const bebidasJSON = JSON.parse(bebidasContacto)
-
-console.log(bebidasContacto)
-console.log(typeof bebidasContacto)
-console.log(bebidasJSON)
-console.log(typeof bebidasJSON)
-// genero constante a partir de valores JSON
-const bebidasIngresadas = bebidasJSON
-
-// traigo cantidad de bebidas guardadas
-
-
-
-
-console.log(bebidasIngresadas.length)
-
-
+ limpiarPers.addEventListener("click", () => {
+     sessionStorage.clear()
+     window.location.reload()
+ })
 
 // boton limpiar datos
 const limpiar = document.getElementById("limpiar")
